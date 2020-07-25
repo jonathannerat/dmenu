@@ -9,7 +9,7 @@ dmenu \- dynamic menu
 .RB [ \-l
 .IR lines ]
 .RB [ \-h
-.IR lineheight ]
+.IR height ]
 .RB [ \-m
 .IR monitor ]
 .RB [ \-p
@@ -28,6 +28,8 @@ dmenu \- dynamic menu
 .IR windowid ]
 .RB [ \-it
 .IR text ]
+.RB [ \-H
+.IR histfile ]
 .P
 .BR dmenu_run " ..."
 .SH DESCRIPTION
@@ -87,14 +89,17 @@ defines the selected background color.
 .BI \-sf " color"
 defines the selected foreground color.
 .TP
-.B \-v
-prints version information to stdout, then exits.
-.TP
 .BI \-w " windowid"
 embed into windowid.
 .TP
 .BI \-it " text".
 start with initial text input.
+.TP
+.BI \-H " histfile"
+save input in histfile and use it for history navigation.
+.TP
+.B \-v
+prints version information to stdout, then exits.
 .SH USAGE
 dmenu is completely controlled by the keyboard.  Items are selected using the
 arrow keys, page up, page down, home, and end.

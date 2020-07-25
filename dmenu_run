@@ -1,2 +1,4 @@
 #!/bin/sh
-dmenu_path | dmenu "$@" | ${SHELL:-"/bin/sh"} &
+_cachefile="${XDG_CACHE_HOME:-$HOME/.cache/}/dmenu_run.hist" 
+
+dmenu_path | dmenu -H "$_cachefile" "$@" | ${SHELL:-"/bin/sh"} &
