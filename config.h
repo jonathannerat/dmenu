@@ -21,6 +21,7 @@ static unsigned int lineheight = 0; /* -h option; minimum height of a menu line 
 
 static unsigned int maxhist    = 64;
 static int histnodup           = 1; /* if 0, record repeated histories */
+static char passmask           = '*'; /* replaces characters in password mode */
 
 /*
  * Characters not considered part of a word while deleting words
