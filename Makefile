@@ -20,7 +20,12 @@ options:
 config.h:
 	cp config.def.h $@
 
+theme.h:
+	cp theme.def.h $@
+
 $(OBJ): arg.h config.h config.mk drw.h
+
+dmenu.o: theme.h
 
 dmenu: dmenu.o drw.o util.o
 	$(CC) -o $@ dmenu.o drw.o util.o $(LDFLAGS)

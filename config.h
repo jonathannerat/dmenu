@@ -1,17 +1,22 @@
 /* See LICENSE file for copyright and license details. */
 /* Default settings; can be overriden by command line. */
 
+#include "theme.h"
+
 static int topbar = 1;                      /* -b  option; if 0, dmenu appears at bottom     */
 /* -fn option overrides fonts[0]; default X11 font or font set */
 static const char *fonts[] = {
-	"monospace:size=10"
+	THEME_FONT,
+#ifdef THEME_EXTRA_FONTS
+	THEME_EXTRA_FONTS
+#endif
 };
 static const char *prompt      = NULL;      /* -p  option; prompt to the left of input field */
 static const char *colors[SchemeLast][2] = {
 	/*     fg         bg       */
-	[SchemeNorm] = { "#bbbbbb", "#222222" },
-	[SchemeSel] = { "#eeeeee", "#005577" },
-	[SchemeOut] = { "#000000", "#00ffff" },
+	[SchemeNorm] = { THEME_WHITE, THEME_BLACK },
+	[SchemeSel]  = { THEME_BLACK, THEME_BLUE },
+	[SchemeOut]  = { THEME_BLACK, THEME_YELLOW },
 };
 /* -l and -g options; controls number of lines and columns in grid if > 0 */
 static unsigned int lines      = 0;
@@ -27,4 +32,4 @@ static char passmask           = '*'; /* replaces characters in password mode */
  * Characters not considered part of a word while deleting words
  * for example: " /?\"&[]"
  */
-static const char worddelimiters[] = " ";
+static const char worddelimiters[] = " /?\"&[]";
