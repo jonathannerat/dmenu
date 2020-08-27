@@ -1,0 +1,15 @@
+# these change too often, don't keep track
+theme.h
+themes/
+
+# here I place all the patches to apply
+patches/
+
+# make files
+*.o
+dmenu
+stest
+
+# patch files
+*.orig
+*.rej

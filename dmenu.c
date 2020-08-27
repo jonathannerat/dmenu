@@ -934,7 +934,7 @@ setup(void)
 static void
 usage(void)
 {
-	fputs("usage: dmenu [-bfivP] [-g columns] [-l lines] [-h height] [-m monitor] [-p prompt]\n"
+	fputs("usage: dmenu [-bfivPF] [-g columns] [-l lines] [-h height] [-m monitor] [-p prompt]\n"
 	      "             [-it text] [-fn font] [-nb color] [-nf color] [-sb color] [-sf color]\n"
 	      "             [-x xoffset] [-y yoffset] [-w width] [-W windowid] [-H histfile]\n", stderr);
 	exit(1);
@@ -955,8 +955,8 @@ main(int argc, char *argv[])
 			topbar = 0;
 		else if (!strcmp(argv[i], "-f"))   /* grabs keyboard before reading stdin */
 			fast = 1;
-		else if (!strcmp(argv[i], "-F"))   /* grabs keyboard before reading stdin */
-			fuzzy = 0;
+		else if (!strcmp(argv[i], "-F"))   /* toggle fuzzy match */
+			fuzzy = !fuzzy;
 		else if (!strcmp(argv[i], "-i")) { /* case-insensitive item matching */
 			fstrncmp = strncasecmp;
 			fstrstr = cistrstr;
