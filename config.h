@@ -14,10 +14,12 @@ static const char *fonts[] = {
 };
 static const char *prompt      = NULL; /* -p  option; prompt to the left of input field */
 static const char *colors[SchemeLast][2] = {
-	/*     fg         bg       */
-	[SchemeNorm] = { THEME_WHITE, THEME_BLACK },
-	[SchemeSel]  = { THEME_BLACK, THEME_BLUE },
-	[SchemeOut]  = { THEME_BLACK, THEME_YELLOW },
+	/*                        fg             bg       */
+	[SchemeNorm]          = { THEME_WHITE,   THEME_BLACK },
+	[SchemeSel]           = { THEME_BLACK,   THEME_BLUE },
+	[SchemeOut]           = { THEME_BLACK,   THEME_YELLOW },
+	[SchemeSelHighlight]  = { THEME_BLACK,   THEME_MAGENTA },
+	[SchemeNormHighlight] = { THEME_MAGENTA, THEME_BLACK },
 };
 /* -l and -g options; controls number of lines and columns in grid if > 0 */
 static unsigned int lines      = 0;
