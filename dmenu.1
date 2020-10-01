@@ -3,7 +3,7 @@
 dmenu \- dynamic menu
 .SH SYNOPSIS
 .B dmenu
-.RB [ \-bfivPF ]
+.RB [ \-bcfivBPF ]
 .RB [ \-g
 .IR columns ]
 .RB [ \-l
@@ -74,6 +74,9 @@ dmenu matches menu items case insensitively.
 .TP
 .B \-P
 dmenu will not directly display the keyboard input, but instead replace it with dots. All data from stdin will be ignored.
+.TP
+.B \-B
+enables border drawing
 .TP
 .B \-F
 toggles the fuzzy match feature in dmenu. If it was built with fuzzy on, it turns it off and vice versa.

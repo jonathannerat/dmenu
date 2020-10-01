@@ -937,13 +937,13 @@ setup(void)
 					break;
 
 		if (centered) {
-			mw = MIN(MAX(max_textw() + promptw, min_width), info[i].width);
+			mw = MIN(MAX(max_textw() + promptw, min_width), info[i].width) - (border ? 2*border_width : 0);
 			x = info[i].x_org + ((info[i].width - mw) / 2);
 			y = info[i].y_org + ((info[i].height - mh) / 2);
 		} else {
 			x = info[i].x_org + dmx;
 			y = info[i].y_org + (topbar ? dmy : info[i].height - mh - dmy);
-			mw = dmw > 0 ? dmw : info[i].width;
+			mw = (dmw > 0 ? dmw : info[i].width) - (border ? 2*border_width : 0);
 		}
 
 		XFree(info);
@@ -955,13 +955,13 @@ setup(void)
 			    parentwin);
 
 		if (centered) {
-			mw = MIN(MAX(max_textw() + promptw, min_width), wa.width);
+			mw = MIN(MAX(max_textw() + promptw, min_width), wa.width) - (border ? 2*border_width : 0);
 			x = (wa.width - mw) / 2;
 			y = (wa.height - mh) / 2;
 		} else {
 			x = dmx;
 			y = topbar ? dmy : wa.height - mh - dmy;
-			mw = dmw > 0 ? dmw : wa.width;
+			mw = (dmw > 0 ? dmw : wa.width) - (border ? 2*border_width : 0);
 		}
 	}
 	promptw = (prompt && *prompt) ? TEXTW(prompt) - lrpad / 4 : 0;
@@ -972,9 +972,11 @@ setup(void)
 	swa.override_redirect = True;
 	swa.background_pixel = scheme[SchemeNorm][ColBg].pixel;
 	swa.event_mask = ExposureMask | KeyPressMask | VisibilityChangeMask;
-	win = XCreateWindow(dpy, parentwin, x, y, mw, mh, 0,
+	win = XCreateWindow(dpy, parentwin, x, y, mw, mh, border ? border_width : 0,
 	                    CopyFromParent, CopyFromParent, CopyFromParent,
 	                    CWOverrideRedirect | CWBackPixel | CWEventMask, &swa);
+	if (border)
+		XSetWindowBorder(dpy, win, scheme[SchemeSel][ColBg].pixel);
 	XSetClassHint(dpy, win, &ch);
 
 
@@ -1033,6 +1035,8 @@ main(int argc, char *argv[])
 			fstrstr = cistrstr;
 		} else if (!strcmp(argv[i], "-P"))   /* is the input a password */
 			passwd = 1;
+		else if (!strcmp(argv[i], "-B"))   /* is the input a password */
+			border = 1;
 		else if (i + 1 == argc)
 			usage();
 		/* these options take one argument */

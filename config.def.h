@@ -3,6 +3,7 @@
 
 static int topbar = 1;                      /* -b  option; if 0, dmenu appears at bottom     */
 static int centered = 0; /* -c option; centers dmenu on screen */
+static int border = 0; /* -B option; enables border drawing */
 static int min_width = 400; /* minimum width when centered */
 static int fuzzy = 1;                      /* -F  option; if 0, dmenu doesn't use fuzzy matching     */
 /* -fn option overrides fonts[0]; default X11 font or font set */
@@ -32,3 +33,6 @@ static int histnodup           = 1; /* if 0, record repeated histories */
  * for example: " /?\"&[]"
  */
 static const char worddelimiters[] = " ";
+
+/* Size of the window border */
+static const unsigned int border_width = 5;
