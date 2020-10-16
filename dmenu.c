@@ -35,6 +35,7 @@ struct item {
 	char *text;
 	struct item *left, *right;
 	int out;
+	int index;
 	double distance;
 };
 
@@ -589,7 +590,7 @@ out:
 static void
 keypress(XKeyEvent *ev)
 {
-	char buf[32];
+	char buf[32], t[sizeof(int) * 4 + 1];
 	int len;
 	KeySym ksym;
 	Status status;
@@ -754,7 +755,8 @@ insert:
 		break;
 	case XK_Return:
 	case XK_KP_Enter:
-		puts((sel && !(ev->state & ShiftMask)) ? sel->text : text);
+		sprintf(t, "%d", sel->index);
+		puts(returnindex ? t : ((sel && !(ev->state & ShiftMask)) ? sel->text : text));
 		if (!(ev->state & ControlMask)) {
 			savehistory((sel && !(ev->state & ShiftMask))
 				    ? sel->text : text);
@@ -831,6 +833,7 @@ readstdin(void)
 			*p = '\0';
 		if (!(items[i].text = strdup(buf)))
 			die("cannot strdup %u bytes:", strlen(buf) + 1);
+		items[i].index = i;
 		items[i].out = 0;
 		drw_font_getexts(drw->fonts, buf, strlen(buf), &tmpmax, NULL);
 		if (tmpmax > inputw) {
@@ -1004,7 +1007,7 @@ setup(void)
 static void
 usage(void)
 {
-	fputs("usage: dmenu [-bcfivPF] [-g columns] [-l lines] [-h height] [-m monitor] [-p prompt]\n"
+	fputs("usage: dmenu [-bcfiIvPF] [-g columns] [-l lines] [-h height] [-m monitor] [-p prompt]\n"
 	      "             [-it text] [-fn font] [-nb color] [-nf color] [-sb color] [-sf color]\n"
 	      "             [-nhb color] [-nhf color] [-shb color] [-shf color]\n"
 	      "             [-x xoffset] [-y yoffset] [-w width] [-W windowid] [-H histfile]\n", stderr);
@@ -1035,6 +1038,8 @@ main(int argc, char *argv[])
 			fstrstr = cistrstr;
 		} else if (!strcmp(argv[i], "-P"))   /* is the input a password */
 			passwd = 1;
+		else if (!strcmp(argv[i], "-I"))
+			returnindex = 1;
 		else if (!strcmp(argv[i], "-B"))   /* is the input a password */
 			border = 1;
 		else if (i + 1 == argc)
