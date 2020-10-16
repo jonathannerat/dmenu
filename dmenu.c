@@ -937,7 +937,7 @@ setup(void)
 					break;
 
 		if (centered) {
-			mw = MIN(MAX(max_textw() + promptw, min_width), info[i].width) - (border ? 2*border_width : 0);
+			mw = MIN(dmw > 0 ? dmw : MAX(max_textw() + promptw, min_width), info[i].width) - (border ? 2*border_width : 0);
 			x = info[i].x_org + ((info[i].width - mw) / 2);
 			y = info[i].y_org + ((info[i].height - mh) / 2);
 		} else {
@@ -955,7 +955,7 @@ setup(void)
 			    parentwin);
 
 		if (centered) {
-			mw = MIN(MAX(max_textw() + promptw, min_width), wa.width) - (border ? 2*border_width : 0);
+			mw = MIN(dmw > 0 ? dmw : MAX(max_textw() + promptw, min_width), wa.width) - (border ? 2*border_width : 0);
 			x = (wa.width - mw) / 2;
 			y = (wa.height - mh) / 2;
 		} else {
