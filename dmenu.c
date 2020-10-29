@@ -755,7 +755,7 @@ insert:
 		break;
 	case XK_Return:
 	case XK_KP_Enter:
-		sprintf(t, "%d", sel->index);
+		if (returnindex && sel) sprintf(t, "%d", sel->index);
 		puts(returnindex ? t : ((sel && !(ev->state & ShiftMask)) ? sel->text : text));
 		if (!(ev->state & ControlMask)) {
 			savehistory((sel && !(ev->state & ShiftMask))
