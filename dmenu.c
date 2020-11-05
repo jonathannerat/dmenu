@@ -940,13 +940,13 @@ setup(void)
 					break;
 
 		if (centered) {
-			mw = MIN(dmw > 0 ? dmw : MAX(max_textw() + promptw, min_width), info[i].width) - (border ? 2*border_width : 0);
+			mw = MIN(dmw > 0 ? dmw : MAX(max_textw() + promptw, min_width), info[i].width) - border*2*border_width - (vertpad > 0 ? 2*vertpad : 0);
 			x = info[i].x_org + ((info[i].width - mw) / 2);
 			y = info[i].y_org + ((info[i].height - mh) / 2);
 		} else {
-			x = info[i].x_org + dmx;
-			y = info[i].y_org + (topbar ? dmy : info[i].height - mh - dmy);
-			mw = (dmw > 0 ? dmw : info[i].width) - (border ? 2*border_width : 0);
+			x = info[i].x_org + dmx + vertpad;
+			y = info[i].y_org + (topbar ? dmy + horipad : info[i].height - mh - dmy - horipad);
+			mw = (dmw > 0 ? dmw : info[i].width) - border*2*border_width - (vertpad > 0 ? 2*vertpad : 0);
 		}
 
 		XFree(info);
@@ -958,13 +958,13 @@ setup(void)
 			    parentwin);
 
 		if (centered) {
-			mw = MIN(dmw > 0 ? dmw : MAX(max_textw() + promptw, min_width), wa.width) - (border ? 2*border_width : 0);
+			mw = MIN(dmw > 0 ? dmw : MAX(max_textw() + promptw, min_width), wa.width) - border*2*border_width - (vertpad > 0 ? 2*vertpad : 0);
 			x = (wa.width - mw) / 2;
 			y = (wa.height - mh) / 2;
 		} else {
-			x = dmx;
-			y = topbar ? dmy : wa.height - mh - dmy;
-			mw = (dmw > 0 ? dmw : wa.width) - (border ? 2*border_width : 0);
+			x = dmx + vertpad;
+			y = topbar ? dmy + horipad : wa.height - mh - dmy - horipad;
+			mw = (dmw > 0 ? dmw : wa.width) - border*2*border_width - (vertpad > 0 ? 2*vertpad : 0);
 		}
 	}
 	promptw = (prompt && *prompt) ? TEXTW(prompt) - lrpad / 4 : 0;
@@ -1010,7 +1010,8 @@ usage(void)
 	fputs("usage: dmenu [-bcfiIvPF] [-g columns] [-l lines] [-h height] [-m monitor] [-p prompt]\n"
 	      "             [-it text] [-fn font] [-nb color] [-nf color] [-sb color] [-sf color]\n"
 	      "             [-nhb color] [-nhf color] [-shb color] [-shf color]\n"
-	      "             [-x xoffset] [-y yoffset] [-w width] [-W windowid] [-H histfile]\n", stderr);
+	      "             [-x xoffset] [-y yoffset] [-w width] [-W windowid] [-H histfile]\n"
+	      "             [-vp vertpad] [-hp horipad]\n", stderr);
 	exit(1);
 }
 
@@ -1089,6 +1090,10 @@ main(int argc, char *argv[])
 			embed = argv[++i];
 		else if (!strcmp(argv[i], "-H"))
 			histfile = argv[++i];
+		else if (!strcmp(argv[i], "-vp"))   /* vertical padding */
+			vertpad = atoi(argv[++i]);
+		else if (!strcmp(argv[i], "-hp"))   /* horizontal padding */
+			horipad = atoi(argv[++i]);
 		else
 			usage();
 

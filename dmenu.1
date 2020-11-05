@@ -44,6 +44,10 @@ dmenu \- dynamic menu
 .IR windowid ]
 .RB [ \-H
 .IR histfile ]
+.RB [ \-vp
+.IR vertpad ]
+.RB [ \-hp
+.IR horipad ]
 .P
 .BR dmenu_run " ..."
 .SH DESCRIPTION
@@ -156,6 +160,12 @@ embed into windowid.
 .TP
 .BI \-H " histfile"
 save input in histfile and use it for history navigation.
+.TP
+.BI \-vp " vertpad"
+surround dmenu window with a vertical padding (left / right)
+.TP
+.BI \-hp " horipad"
+surround dmenu window with a horizontal padding (above / below)
 .TP
 .BI \-nhb " color"
 defines the normal highlight background color.

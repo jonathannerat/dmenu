@@ -7,6 +7,8 @@ static int border      =   0; /* -B option; enables border drawing */
 static int min_width   = 400; /*            minimum width when centered */
 static int fuzzy       =   1; /* -F option; if 0, dmenu doesn't use fuzzy matching */
 static int returnindex =   0; /* -I option; returns index of selected items instead of text */
+static unsigned int vertpad = 10; /* -vp option; sorround dmenu's window with vertical padding */
+static unsigned int horipad = 10; /* -vh option; sorround dmenu's window with horizontal padding */
 /* -fn option overrides fonts[0]; default X11 font or font set */
 static const char *fonts[] = {
 	"monospace:size=10"
