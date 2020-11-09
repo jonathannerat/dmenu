@@ -9,8 +9,8 @@ static int border      =   0; /* -B option; enables border drawing */
 static int min_width   = 400; /*            minimum width when centered */
 static int fuzzy       =   1; /* -F option; if 0, dmenu doesn't use fuzzy matching */
 static int returnindex =   0; /* -F option; if 0, dmenu doesn't use fuzzy matching */
-static unsigned int vertpad = 10; /* -vp sorround dmenu with vertical padding to the sides */
-static unsigned int horipad = 10; /* -vh sorround dmenu with horizontal padding above and below */
+static unsigned int vertpad = OUTER_GAPS; /* -vp sorround dmenu with vertical padding to the sides */
+static unsigned int horipad = OUTER_GAPS; /* -vh sorround dmenu with horizontal padding above and below */
 /* -fn option overrides fonts[0]; default X11 font or font set */
 static const char *fonts[] = {
 	THEME_FONT,
