@@ -34,6 +34,7 @@ struct item {
 	char *text;
 	struct item *left, *right;
 	int out;
+	int index;
 };
 
 static char numbers[NUMBERSBUFSIZE] = "";
@@ -47,6 +48,7 @@ static struct item *items = NULL;
 static struct item *matches, *matchend;
 static struct item *prev, *curr, *next, *sel;
 static int mon = -1, screen;
+static int print_index = 0;
 
 static Atom clip, utf8;
 static Display *dpy;
@@ -661,7 +663,11 @@ insert:
 		break;
 	case XK_Return:
 	case XK_KP_Enter:
-		puts((sel && !(ev->state & ShiftMask)) ? sel->text : text);
+		if (print_index)
+			printf("%d\n", (sel && !(ev->state & ShiftMask)) ? sel->index : -1);
+		else
+			puts((sel && !(ev->state & ShiftMask)) ? sel->text : text);
+
 		if (!(ev->state & ControlMask)) {
 			savehistory((sel && !(ev->state & ShiftMask))
 				    ? sel->text : text);
@@ -743,6 +749,7 @@ readstdin(void)
 			line[len - 1] = '\0';
 		items[i].text = line;
 		items[i].out = 0;
+		items[i].index = i;
 		line = NULL; /* next call of getline() allocates a new line */
 	}
 	free(line);
@@ -963,6 +970,11 @@ main(int argc, char *argv[])
 			colors[SchemeSel][ColFg] = argv[++i];
 		else if (!strcmp(argv[i], "-w"))   /* embedding window id */
 			embed = argv[++i];
+		else if (!strcmp(argv[i], "-it")) {   /* embedding window id */
+			const char * text = argv[++i];
+			insert(text, strlen(text));
+		} else if (!strcmp(argv[i], "-ix"))   /* adds ability to return index in list */
+			print_index = 1;
 		else
 			usage();
 
