@@ -22,3 +22,22 @@ Afterwards enter the following command to build and install dmenu
 Running dmenu
 -------------
 See the man page for details.
+
+
+Patches
+-------
+This build of dmenu has the following patches applied:
+
+- border
+- center
+- center
+- fuzzyhighlight
+- fuzzymatch
+- highlight
+- initialtext
+- lineheight
+- navhistory
+- numbers
+- password
+- printindex
+- xyw
